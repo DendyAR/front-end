@@ -33,6 +33,12 @@ export default function QuestionDetailPage() {
     const isOwner = user?.id === question.authorId
     const [editing, setEditing] = useState(false)
 
+    console.log({
+        userId: user?.id,
+        questionAuthorId: question.authorId,
+    })
+
+
     return (
         <div className="max-w-3xl mx-auto p-6 space-y-8">
             {/* ===== Question Header ===== */}

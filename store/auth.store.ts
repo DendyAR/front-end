@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { SEED_USER_ID } from "@/constants/seed";
 
 type AuthUser = {
 	id: string;
@@ -23,7 +24,7 @@ export const useAuthStore = create<AuthState>()(
 			login: (username) =>
 				set({
 					user: {
-						id: crypto.randomUUID(),
+						id: SEED_USER_ID, // 🔥 SAMA dengan seed question
 						username,
 					},
 				}),
@@ -32,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
 			reset: () => set({ user: null }),
 		}),
 		{
-			name: "auth-storage", // key localStorage
+			name: "auth-storage",
 		},
 	),
 );

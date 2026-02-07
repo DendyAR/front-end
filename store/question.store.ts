@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Question } from "@/types/question";
+import { SEED_USER_ID, SEED_USERNAME } from "@/constants/seed";
 
 type CreateQuestionPayload = Omit<Question, "id" | "createdAt" | "comments">;
 
@@ -27,8 +28,8 @@ const seedQuestions: Question[] = [
 		title: "How to use Zustand with Next.js?",
 		description: "I am confused about client components and state.",
 		status: "open",
-		authorId: "seed-user",
-		authorName: "Seed User",
+		authorId: SEED_USER_ID,
+		authorName: SEED_USERNAME,
 		createdAt: new Date(),
 		comments: [],
 	},
