@@ -1,10 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QnA App (Single Page Application)
+
+This is a **Question & Answer (QnA) web application** inspired by Stack Overflow, built using **Next.js App Router**.
+The application is implemented as a **Single Page Application (SPA)** with **client-side state management only** — no backend or database required.
+
+All data is stored **in memory and persisted to localStorage** using Zustand.
+
+---
+
+## Features
+
+### Authentication (Mocked)
+- Simple login using **username only**
+- No real authentication or backend integration
+- Login state persists until logout or storage reset
+
+### Questions
+- View a list of questions
+- Create a new question
+- Edit questions created by the logged-in user
+- Change question status (**open / answered / closed**) for own questions only
+- Initial seed question loaded on first application load
+
+### Comments
+- Add comments to any question
+- Edit comments created by the logged-in user
+- Comments update instantly without page reload
+
+### UI & UX
+- Fully responsive layout (desktop & mobile)
+- Stack Overflow–style question list
+- Clean and modern UI using **shadcn/ui**
+- Client-side navigation (SPA behavior)
+
+### Developer Utilities
+- Dev-only **Reset Storage** button
+- Persistent state using `localStorage`
+
+---
+
+## Tech Stack
+
+- **Next.js (App Router)**
+- **React**
+- **TypeScript**
+- **Zustand** (state management)
+- **Zustand Persist** (localStorage)
+- **Tailwind CSS**
+- **shadcn/ui**
+
+---
+
+## Access Control Rules
+
+| Action | Permission |
+|------|------------|
+| Create question | Logged-in users |
+| Edit question | Question owner only |
+| Change question status | Question owner only |
+| Add comment | Any logged-in user |
+| Edit comment | Comment owner only |
+
+Access control is enforced both:
+- In the **UI layer** (conditional rendering)
+- In the **state layer** (safe Zustand updates)
+
+---
+
+## Project Structure
+
+```
+app/
+ ├─ page.tsx              # Question list page
+ ├─ ask/ 
+ ├─ login/page.tsx        # login page
+ ├─ question/[id]/        # Question detail page
+ └─ layout.tsx            # Root layout
+
+components/
+ ├─ Navbar.tsx
+ ├─ AppShell.tsx
+ ├─ DevResetButton.tsx
+ ├─ theme-provider.tsx
+ ├─ ToogleTheme.tsx
+ ├─ AuthGuard.tsx
+ └─ question/
+     ├─ QuestionCard.tsx
+     ├─ QuestionStatusDropdown.tsx
+     ├─ EditQuestionForm.tsx
+     ├─ CommentItem.tsx
+     └─ CommentForm.tsx
+
+store/
+ ├─ auth.store.ts
+ └─ question.store.ts
+ui/
+ ├─ shdcn components
+
+types/
+ └─ question.ts
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
 # or
 yarn dev
@@ -14,23 +117,33 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app will automatically reload as you edit the source files.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Development Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### State Persistence
+- All application data is stored in `localStorage`
+- State persists across page refreshes
+- Dev-only reset button clears stored state safely
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### React Strict Mode
+- React Strict Mode is enabled during development
+- Double render behavior is expected and handled correctly
+- Production build renders normally
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Limitations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- No backend or API
+- Mock authentication only
+- Single-device, single-user simulation
+- Intended for learning, demo, and technical evaluation purposes

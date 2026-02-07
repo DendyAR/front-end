@@ -13,6 +13,7 @@ export type Question = {
 	description: string;
 	status: QuestionStatus;
 	authorId: string;
+	authorName: string;
 	createdAt: Date;
 	comments: QuestionComment[];
 };

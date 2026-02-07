@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthGuard } from "@/components/AuthGuard";
 import { Navbar } from "@/components/Navbar";
 import { AppShell } from "@/components/AppShell";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,14 +28,21 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthGuard>
-          <AppShell>{children}</AppShell>
-        </AuthGuard>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthGuard>
+            <AppShell>{children}</AppShell>
+          </AuthGuard>
+        </ThemeProvider>
       </body>
     </html>
   );

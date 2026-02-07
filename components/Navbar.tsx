@@ -16,6 +16,7 @@ import {
 
 import { useAuthStore } from "@/store/auth.store"
 import { DevResetButton } from "./DevResetButton"
+import { ModeToggle } from "./ToogleTheme"
 
 export function Navbar() {
     const user = useAuthStore((s) => s.user)
@@ -50,6 +51,8 @@ export function Navbar() {
                             <span className="text-sm text-muted-foreground">
                                 {user.username}
                             </span>
+
+                            <ModeToggle />
 
                             <Button
                                 size="sm"

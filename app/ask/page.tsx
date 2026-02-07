@@ -43,6 +43,7 @@ export default function AskQuestionPage() {
             description: description.trim(),
             status: "open",
             authorId: user.id,
+            authorName: user.username,
         })
 
         router.push("/")

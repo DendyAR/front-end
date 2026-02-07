@@ -4,9 +4,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Question } from "@/types/question";
 
+type CreateQuestionPayload = Omit<Question, "id" | "createdAt" | "comments">;
+
 type QuestionState = {
 	questions: Question[];
-	addQuestion: (q: Omit<Question, "id" | "createdAt" | "comments">) => void;
+	addQuestion: (q: CreateQuestionPayload) => void;
 	updateQuestion: (id: string, data: Partial<Question>, userId: string) => void;
 	addComment: (questionId: string, content: string, authorId: string) => void;
 	updateComment: (
@@ -26,6 +28,7 @@ const seedQuestions: Question[] = [
 		description: "I am confused about client components and state.",
 		status: "open",
 		authorId: "seed-user",
+		authorName: "Seed User",
 		createdAt: new Date(),
 		comments: [],
 	},
@@ -111,7 +114,7 @@ export const useQuestionStore = create<QuestionState>()(
 					};
 				}
 
-				// fix Date after hydration
+				// 🔧 Fix Date after hydration
 				persistedState.questions.forEach((q) => {
 					q.createdAt = new Date(q.createdAt);
 					q.comments.forEach((c) => {
